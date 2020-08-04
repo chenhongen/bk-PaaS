@@ -12,9 +12,21 @@
 module.exports = process.env.NODE_ENV === 'production'
     ? {
         port: 5000,
-        protocol: 'http'
+        protocol: 'http',
+        // 企业版/社区版 base url
+        hostUrl: '',
+        // 应用 ID
+        appCode: '',
+        // 应用 TOKEN
+        appSecret: ''
     }
     : {
         port: 5000,
-        protocol: 'http'
+        protocol: 'http',
+        // 企业版/社区版 base url
+        hostUrl: '',
+        // 应用 ID
+        appCode: '',
+        // 应用 TOKEN
+        appSecret: ''
     }

@@ -9,20 +9,18 @@
  * specific language governing permissions and limitations under the License.
  */
 
-import { Entity, Column } from 'typeorm'
-import Base from './base'
+import { getRepository } from 'typeorm'
+import User from './entities/user'
 
-@Entity({ name: 'func_group', comment: '函数分类表' })
-export default class extends Base {
-    // 函数文件夹名字
-    @Column({ type: 'varchar', length: 255 })
-    groupName
+module.exports = {
+    findOneByBk (bkUserName) {
+        return getRepository(User).findOne({ bk: bkUserName })
+    },
 
-    // 父group节点的id
-    @Column({ type: 'int' })
-    parentId
-
-    // 排序
-    @Column({ type: 'int' })
-    order
+    // 创建用户
+    addUser (data) {
+        const repository = getRepository(User)
+        const user = repository.create(data)
+        return repository.save(user)
+    }
 }

@@ -11,6 +11,8 @@
 
 import { PrimaryGeneratedColumn, UpdateDateColumn, CreateDateColumn, Column, BeforeInsert, BeforeUpdate } from 'typeorm'
 
+export const curLoginUsername = {}
+
 export default class Base {
     // 自动增量值自动生成ID
     @PrimaryGeneratedColumn()
@@ -32,17 +34,25 @@ export default class Base {
     @Column({ type: 'varchar', length: 255 })
     updateUser
 
+    // 是否删除，默认值为0，表示未删除，1为已删除
+    @Column({ type: 'int' })
+    deleteFlag
+
     // 插入数据写入用户名
     // tofix: 登陆以后，拿到登陆用户名取代admin
     @BeforeInsert()
-    updateCreateUser () {
+    beforeInsert () {
+        console.log('beforeInsert curLoginUsername', curLoginUsername)
         this.createUser = 'admin'
+        this.updateUser = 'admin'
+        this.updateTime = new Date()
     }
 
     // 更新数据写入用户名
     // tofix: 登陆以后，拿到登陆用户名取代admin
     @BeforeUpdate()
     updateUpdateUser () {
+        console.log('updateUpdateUser curLoginUsername', curLoginUsername)
         this.updateUser = 'admin'
     }
 }
